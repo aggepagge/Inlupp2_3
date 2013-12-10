@@ -1,0 +1,7 @@
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\obj\x86\Debug\Explotion.csprojResolveAssemblyReference.cache
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\bin\x86\Debug\Content\explosion.xnb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\bin\x86\Debug\Explotion.exe
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\bin\x86\Debug\Explotion.pdb
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\obj\x86\Debug\Explotion.exe
+C:\Users\Agge\Documents\Visual Studio 2010\Projects\SpelProgrammering\TestOne\Inluppar\Inlupp2\Explotion\Explotion\Explotion\Explotion\obj\x86\Debug\Explotion.pdb
