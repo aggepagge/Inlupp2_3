@@ -10,12 +10,16 @@ namespace Explotion.View
 {
     class Camera
     {
+        //Variabler för visuell bredd och höjd
         private int screenWidth;
         private int screenHeight;
 
+        //Variabler för uträkning av skalan
         private float scaleX;
         private float scaleY;
 
+        //Variabler för marginaler i höjd eller bredd 
+        //för om förnstret har en ojämn form
         private float widthMargin = 0;
         private float heightMargin = 0;
 
@@ -27,6 +31,7 @@ namespace Explotion.View
             this.scaleX = (float)screenWidth / XNAController.boardLogicWidth;
             this.scaleY = (float)screenHeight / XNAController.boardLogicHeight;
 
+            //Sätter höjd och bredd att vara densamma
             if (scaleY < scaleX)
             {
                 widthMargin = (screenWidth - screenHeight) / 2;
@@ -39,6 +44,7 @@ namespace Explotion.View
             }
         }
 
+        //Skapar en rektangel i Visuell storlek
         internal Rectangle getExplotionCoordinates(float modelX, float modelY, float modelDimention)
         {
             return new Rectangle(
@@ -49,22 +55,13 @@ namespace Explotion.View
                                 );
         }
 
-        internal Rectangle getExplotionInnerRect(float numFramesX, float numFramesY, int frameX,
-                int frameY, int outerRectDimentionX, int outerRectDimentionY, Rectangle outerRect)
-        {
-            return new Rectangle(
-                                    (int)(frameX * outerRectDimentionX),
-                                    (int)(frameY * outerRectDimentionY),
-                                    outerRectDimentionX,
-                                    outerRectDimentionY
-                                );
-        }
-
+        //Returnerar skalan
         internal int GetScale()
         {
             return (int)scaleX;
         }
 
+        //Returnerar skalan i float
         internal float GetDimention()
         {
             return scaleX;

@@ -10,70 +10,49 @@ namespace Explotion.View
 {
     class Animation
     {
-        //private Vector2 possition;
-        //private float size = 0.1f;
-        //private float timeElapsed = 0;
-        //private static float MAX_TIME = 0.5f;
-        //private static int numberOfFrames = 24;
-        //private static int numFramesX = 4;
-        //private static int numFramesY = 6;
-        //private int frameX = 0;
-        //private int frameY = 0;
-
-        //internal Animation(Vector2 startPossition, int scale)
-        //{
-        //    this.possition = new Vector2(startPossition.X, startPossition.Y);
-        //}
-
-        //internal void Update(float elapsedGameTime)
-        //{
-        //    timeElapsed += elapsedGameTime;
-        //    float percentAnimated = timeElapsed / MAX_TIME;
-        //    int frame = (int)(percentAnimated * numberOfFrames);
-
-        //    frameX = frame % numFramesX;
-        //    frameY = frame / numFramesX;
-        //}
-
+        //Vector för possition av explotionen
         private Vector2 possition;
+        //Storleken i logisk skala (1.0-skala)
         private float size = 0.5f;
 
+        //Aktuell ruta i X-led
         private int frameX = 1;
+        //Aktuell ruta i Y-led
         private int frameY = 1;
+        //Totalt antal rutor på spriten
         private static int numberOfFrames = 32;
+        //Antal rutor i X-led
         private static int numFramesX = 4;
+        //Antal rutor i Y-led
         private static int numFramesY = 8;
 
-        private float percentHeight;
-        private float precentWidth;
-
-        private static float MAX_TIME = 6.5f;
+        //Totala tiden explotionen ska visas
+        private static float MAX_TIME = 0.5f;
+        //Tiden varje bild ska visas
         private float imageTime;
+        //Aktuell bildruta
         private int imageCount = 1;
+        //Variabel för den förflutna tiden
         private float time = 0;
-        private Texture2D texture;
 
-        internal Animation(Vector2 startPossition, int scale, ContentManager contentManager)
+        internal Animation(Vector2 startPossition, int scale)
         {
+            //Initsierar possitionen
             this.possition = new Vector2(startPossition.X, startPossition.Y);
+            //Räknar ut tiden för varje bildruta genom att dela den totala tiden med antalet bildrutor
             imageTime = MAX_TIME / numberOfFrames;
 
-            texture = contentManager.Load<Texture2D>("explosion");
-
-            //TODO: Räkna ut procentdel för spriten mot yttre panelen
-
+            //Initsierar första rutan
             updateSprite();
         }
 
-        private void setPercentCordinates()
-        {
-
-        }
-
+        //Uppdaterar explotionen
         internal void Update(float elapsedGameTime)
         {
             time += elapsedGameTime;
 
+            //Om time är större än visningstid för en bildruta så visas nästa bild 
+            //och time sätts till noll igen för uppräkning av nästa bildruta
             if (time > imageTime)
             {
                 if (imageCount > numberOfFrames)
@@ -86,10 +65,12 @@ namespace Explotion.View
                     time = 0;
                 }
 
+                //Uppdaterar bildrutan
                 updateSprite();
             }
         }
 
+        //Räkar ut vilken ruta i X-led och Y-led som ska visas
         private void updateSprite()
         {
             int countRowX = 1;
@@ -101,24 +82,34 @@ namespace Explotion.View
             frameY = countRowX;
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera camera)
+        //Ritar ut explotionen med Draw-funktionen som tar två rektanglar som argument.
+        //Den första rektangeln skapas genom kameraklass-objektet och sätts till rätt visuell
+        //storlek.
+        //Den andra rektangeln sätts till del av den första rektangeln (För att visa en del av spriten)
+        internal void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)
         {
+            //Yttre rektangel med startpossition (X och Y) samt logisk storlek.
             Rectangle frameRect = camera.getExplotionCoordinates(possition.X, possition.Y, size);
 
             int Xrow = 0;
             int Yrow = 0;
 
+            int spriteWidth = (int)(texture.Width / numFramesX);
+            int spriteHeight = (int)(texture.Height / numFramesY);
+
+            //Sätter rätt bredd och höjd i pixlar för aktuell ruta
             if(frameY == 1)
                 Yrow = 0;
             else if(frameY > 1)
-                Yrow = (frameY - 1) * frameRect.Height;
+                Yrow = (frameY - 1) * spriteHeight;
 
             if (frameX == 1)
                 Xrow = 0;
             else if (frameX > 1)
-                Xrow = (frameX - 1) * frameRect.Width;
+                Xrow = (frameX - 1) * spriteWidth;
 
-            Rectangle explotionRect = new Rectangle(Xrow, Yrow, frameRect.Width / numFramesX, (frameRect.Height * 2) / numFramesY);
+            //Skapar den inre rektangeln där spriten ritas ut
+            Rectangle explotionRect = new Rectangle(Xrow, Yrow, spriteWidth, spriteHeight);
 
             spriteBatch.Draw(texture, frameRect, explotionRect, Color.White);
         }

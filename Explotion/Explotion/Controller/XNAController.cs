@@ -28,6 +28,9 @@ namespace Explotion.Controller
         //Variabel för Camera-objektet
         Camera camera;
 
+        //Variabel för texturen
+        Texture2D texture;
+
         //Konstanter för logisk höjd och bredd på panelen
         public const float boardLogicWidth = 1.0f;
         public const float boardLogicHeight = 1.0f;
@@ -71,7 +74,9 @@ namespace Explotion.Controller
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 
-            v_explotionView = new ExplotionView(graphics.GraphicsDevice, m_explotionModel, Content, camera, spriteBatch);
+            v_explotionView = new ExplotionView(graphics.GraphicsDevice, m_explotionModel, camera, spriteBatch);
+
+            texture = Content.Load<Texture2D>("explosion");
         }
 
         /// <summary>
@@ -111,7 +116,8 @@ namespace Explotion.Controller
                 v_explotionView.restart(Content);
             }
 
-            v_explotionView.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //Anropar draw-funktionen för View
+            v_explotionView.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, texture);
 
             base.Draw(gameTime);
         }

@@ -17,43 +17,38 @@ namespace Explotion.View
         internal Camera camera;
         internal GraphicsDevice graphDevice;
         internal SpriteBatch spriteBatch;
-
         internal Animation explotion;
 
-        internal ExplotionView(GraphicsDevice graphDevice, ExplotionModel particleModel,
-            ContentManager contentManager, Camera camera, SpriteBatch spriteBatch)
+        //Konstruktor som initsierar objektet
+        internal ExplotionView(GraphicsDevice graphDevice, ExplotionModel particleModel, Camera camera, SpriteBatch spriteBatch)
         {
             this.graphDevice = graphDevice;
             this.m_particleModel = particleModel;
             this.camera = camera;
             this.spriteBatch = spriteBatch;
 
-            explotion = new Animation(m_particleModel.Level.StartPossition, camera.GetScale(), contentManager);
-
-            LoadContent(contentManager);
+            explotion = new Animation(m_particleModel.Level.StartPossition, camera.GetScale());
         }
 
+        //Metod som startar om animeringen
         internal void restart(ContentManager contentManager)
         {
-            explotion = new Animation(m_particleModel.Level.StartPossition, camera.GetScale(), contentManager);
+            explotion = new Animation(m_particleModel.Level.StartPossition, camera.GetScale());
         }
 
-        internal void LoadContent(ContentManager contentManager)
-        {
-            
-        }
-
+        //Uppdaterar explotionen med förfluten tid
         internal void UpdateView(float elapsedGameTime)
         {
             explotion.Update(elapsedGameTime);
         }
 
-        internal void Draw(float elapsedGameTime)
+        //Anropar spritbatchen för utritning samt explotionens Draw-funktion
+        internal void Draw(float elapsedGameTime, Texture2D texture)
         {
             graphDevice.Clear(Color.White);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            explotion.Draw(spriteBatch, camera);
+            explotion.Draw(spriteBatch, camera, texture);
 
             spriteBatch.End();
         }
